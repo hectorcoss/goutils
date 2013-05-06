@@ -5,15 +5,19 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"flag"
 	"os"
 )
 
+var dir *string = flag.String("directory", "", "Directory to scan")
+
 func main() {
-	if len(os.Args) < 1 {
-		fmt.Println("Please specify the directory to scan.")
+	flag.Parse()
+	if *dir == "" {
+		fmt.Println("Please specify the directory to scan")
 		os.Exit(1)
 	}
-	list, err := ioutil.ReadDir(os.Args[1])
+	list, err := ioutil.ReadDir(*dir)
 	if err != nil {
 		log.Fatal(err)
 	} else {
